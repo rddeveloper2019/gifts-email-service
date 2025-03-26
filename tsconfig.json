@@ -11,11 +11,9 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "jsx": "react",
     "skipLibCheck": true,
-    "strictNullChecks": false,
     "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "strictBindCallApply": false
   }
 }
