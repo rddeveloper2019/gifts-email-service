@@ -1,1 +1,21 @@
+.pagination {
+  --bs-pagination-active-bg: #ffc107 !important;
+  --bs-pagination-active-border-color: #ffc107 !important;
+  --bs-pagination-border-color: #ffc107 !important;
+  --bs-pagination-color: #000 !important;
+}
 
+.accordion-button,
+.accordion-button:not(.collapsed) {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.success {
+  background-color: #198754;
+  color: white;
+}
+.warning {
+  background-color: #ffc107;
+  color: #000;
+}
