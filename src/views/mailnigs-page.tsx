@@ -1,4 +1,3 @@
-import LiveMessages from "./components/live-messages";
 import NavBar from "./components/nav-bar";
 import UnverifiedEmailNotification from "./components/unverified-email-notification";
 import React from "react";
@@ -6,6 +5,7 @@ import MailingsTable from "./components/mailnings-table";
 import MailningForm from "./components/mailing-form";
 import { Links } from "./enums";
 import Pagination from "./components/pagination";
+import ToastNotifications from "./components/toast-notifications";
 
 const MailnigsPage = () => {
   return (
@@ -18,7 +18,7 @@ const MailnigsPage = () => {
       />
 
       <div className="d-flex align-items-center flex-column mb-3">
-        <LiveMessages />
+        <ToastNotifications />
         <UnverifiedEmailNotification />
         <MailningForm
           method={"POST"}
