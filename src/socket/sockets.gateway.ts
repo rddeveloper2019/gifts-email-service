@@ -6,7 +6,7 @@ import {
 import { Socket } from "socket.io";
 
 const users = ["1", "2", "3"];
-const ttypes = ["warning", "success", "danger"];
+
 const getId = (arr: string[] = []) =>
   arr[Math.floor(Math.random() * arr.length)];
 
@@ -25,14 +25,9 @@ export class Gateway {
     this.server.to(id).emit("init");
   }
 
-  public sendMessage(message: string) {
-    const clId = getId(users);
-
-    this.server.to(clId).emit("message", {
-      data: JSON.stringify({
-        type: getId(ttypes),
-        body: `Your  id: ${clId}\n${message}`,
-      }),
+  public sendMessage(userId: string, message: string) {
+    this.server.to(userId).emit("message", {
+      data: message,
     });
   }
 }

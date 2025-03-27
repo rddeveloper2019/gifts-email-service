@@ -4,15 +4,13 @@ const messages = document.querySelector("#toast-notifications");
 
 const generateToast = ({ type = "success", body = "" }) => {
   return `
-  <div class="toast align-items-center text-bg-${type} border-0 show" role="alert" aria-live="assertive"
-  aria-atomic="true">
+  <div class="toast align-items-center text-bg-${type} border-0 show">
     <div class="d-flex">
-        <div class="toast-body">${body}.</div>
+        <div class="toast-body">${body}</div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
             aria-label="Close"></button>
     </div>
-  </div>
-    `;
+  </div>`;
 };
 
 const subscribe = () => {
