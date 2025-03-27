@@ -45,9 +45,8 @@ export function withJsxEngine(
 
     const { pipe } = renderToPipeableStream(html, {
       bootstrapScripts: controllerOpts.bootstrapScripts ?? [
-        "js/index.js",
-        "js/script.js",
-        "js/socket.io.js",
+        "/js/script.js",
+        "/js/toast-notifications.js",
       ],
       onShellReady() {
         response.setHeader("content-type", "text/html");
