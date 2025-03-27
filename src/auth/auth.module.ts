@@ -1,13 +1,12 @@
-import { AppModule } from "./../app.module";
 import { Module } from "@nestjs/common";
-import { ToastsService } from "src/toasts.service";
+import { ToastsModule } from "src/toasts/toasts.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { SignUpProvider } from "./providers/sign-up.provider";
 
 @Module({
-  imports: [AppModule],
+  imports: [ToastsModule],
   controllers: [AuthController],
   providers: [AuthService, SignInProvider, SignUpProvider],
 })

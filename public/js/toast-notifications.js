@@ -1,7 +1,6 @@
 const socket = io();
 
 const messages = document.querySelector("#toast-notifications");
-console.log("(**)=> socket: ", socket);
 
 const generateToast = ({ type = "success", body = "" }) => {
   return `
