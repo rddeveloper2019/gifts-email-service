@@ -4,11 +4,17 @@ import NavBar from "./components/nav-bar";
 import Pagination from "./components/pagination";
 import UnverifiedEmailNotification from "./components/unverified-email-notification";
 import React from "react";
-import { Links } from "./enums";
+import Layout from "./layout";
+import ToastNotifications from "./components/toast-notifications";
+
+const Links = {
+  GIFTS: "gifts",
+  MAILINGS: "mailings",
+};
 
 const GiftsPage = () => {
   return (
-    <>
+    <Layout>
       <NavBar
         options={{
           [Links.MAILINGS]: false,
@@ -23,7 +29,7 @@ const GiftsPage = () => {
         <GiftsTable />
         <Pagination />
       </div>
-    </>
+    </Layout>
   );
 };
 

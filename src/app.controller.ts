@@ -1,30 +1,25 @@
-import { Controller, Get, Param, Query, Res } from "@nestjs/common";
+import { Controller, Get, Param, Render, Res } from "@nestjs/common";
 import { AppService } from "./app.service";
-import { JsxRender } from "./jsx.decorator";
-import MailnigsPage from "./views/mailnigs-page";
-import GiftsPage from "./views/gifts-page";
-import EditMailingPage from "./views/edit-mailing-page";
 import { Response } from "express";
-import EditGiftPage from "./views/edit-gift-page";
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @JsxRender(MailnigsPage)
+  @Render("mailnigs-page")
   public mailnigsPage() {
     return {};
   }
 
-  @Get("/gifts")
-  @JsxRender(GiftsPage)
+  @Get("gifts")
+  @Render("gifts-page")
   public giftsPage() {
     return {};
   }
 
   @Get("/edit-mailing/:id")
-  @JsxRender(EditMailingPage)
+  @Render("edit-mailing-page")
   public editMailingPage(@Param("id") id: string) {
     return {};
   }
@@ -36,7 +31,7 @@ export class AppController {
   }
 
   @Get("/edit-gift/:id")
-  @JsxRender(EditGiftPage)
+  @Render("edit-gift-page")
   public editGiftPage(@Param("id") id: string) {
     return {};
   }

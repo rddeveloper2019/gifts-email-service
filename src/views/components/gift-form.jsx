@@ -1,12 +1,6 @@
 import React from "react";
 
-export interface GiftFormProps {
-  method: string;
-  title: string;
-  button: string;
-}
-
-const GiftForm = ({ method, title, button }: GiftFormProps) => {
+const GiftForm = ({ method, title, button }) => {
   return (
     <div className="accordion  mb-3 w-100 success" id="accordionExample">
       <div className="accordion-item">

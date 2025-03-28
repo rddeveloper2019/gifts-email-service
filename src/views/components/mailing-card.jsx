@@ -23,7 +23,7 @@ const MailingCard = () => {
           </p>
 
           <h5 className="card-title">Status</h5>
-          <p className="card-text p-3  rounded success">Sended</p>
+          <p className="card-text p-3  rounded success">Sent</p>
         </div>
       </div>
     </>

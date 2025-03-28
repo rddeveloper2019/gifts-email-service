@@ -1,11 +1,11 @@
 import React from "react";
-import { Links } from "../enums";
 
-export interface NavBarProps {
-  options?: Record<Links, boolean>;
-}
+const Links = {
+  GIFTS: "gifts",
+  MAILINGS: "mailings",
+};
 
-const NavBar = ({ options }: NavBarProps) => {
+const NavBar = ({ options }) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">

@@ -1,12 +1,6 @@
 import React from "react";
 
-export interface MailningProps {
-  method: string;
-  title: string;
-  button: string;
-}
-
-const MailningForm = ({ method, button, title }: MailningProps) => {
+const MailningForm = ({ method, button, title }) => {
   return (
     <div className="accordion  mb-3 w-100 success" id="accordionExample">
       <div className="accordion-item">
