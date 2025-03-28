@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { ToastsModule } from "src/toasts/toasts.module";
+import { ToastsModule } from "../toasts/toasts.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { SignInProvider } from "./providers/sign-in.provider";

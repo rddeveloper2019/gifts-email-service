@@ -31,14 +31,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       }
     }
 
-    console.log("(**)=> : ", {
-      title: "Ошибка",
-      messages,
-      statusCode: status,
-      path: request.url,
-    });
-
-    response.status(status).render("error-page", {
+     response.status(status).render("error-page", {
       title: "Ошибка",
       messages,
       statusCode: status,

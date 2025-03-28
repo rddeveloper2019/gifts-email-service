@@ -2,9 +2,8 @@ import { ToastTypes } from "./../toasts/enum/toasts.enum";
 import { SignUpProvider } from "./providers/sign-up.provider";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { Injectable } from "@nestjs/common";
-import { SignInProps } from "src/views/signin-page";
-import { SignUpProps } from "src/views/signup-page";
-import { ToastsService } from "src/toasts/toasts.service";
+import { ToastsService } from "../toasts/toasts.service";
+import { SignInProps, SignUpProps } from "../views/prop-types";
 
 //todo remove
 const users = ["1", "2", "3"];
