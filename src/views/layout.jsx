@@ -1,7 +1,6 @@
 import React from "react";
-import { JsxLayoutProps } from "src/jsx.engine";
 
-export default function DefaultLayout({ children }: JsxLayoutProps) {
+export default function Layout({ children }) {
   return (
     <html lang="en">
       <head>
@@ -36,6 +35,8 @@ export default function DefaultLayout({ children }: JsxLayoutProps) {
         integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
         crossOrigin="anonymous"
       ></script>
+      <script src="/js/script.js"></script>
+      <script src="/js/toast-notifications.js"></script>
     </html>
   );
 }

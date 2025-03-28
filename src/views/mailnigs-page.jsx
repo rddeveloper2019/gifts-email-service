@@ -3,13 +3,17 @@ import UnverifiedEmailNotification from "./components/unverified-email-notificat
 import React from "react";
 import MailingsTable from "./components/mailnings-table";
 import MailningForm from "./components/mailing-form";
-import { Links } from "./enums";
 import Pagination from "./components/pagination";
 import ToastNotifications from "./components/toast-notifications";
+import Layout from "./layout";
 
+const Links = {
+  GIFTS: "gifts",
+  MAILINGS: "mailings",
+};
 const MailnigsPage = () => {
   return (
-    <>
+    <Layout>
       <NavBar
         options={{
           [Links.MAILINGS]: true,
@@ -28,7 +32,7 @@ const MailnigsPage = () => {
         <MailingsTable />
         <Pagination />
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -1,13 +1,17 @@
 import React from "react";
+import Layout from "./layout";
 
-export interface SignUpProps {
-  pageTitle: string;
-}
-const SignUpPage = ({ pageTitle }: SignUpProps) => {
+const SignInPage = ({ pageTitle }) => {
   return (
-    <>
+    <Layout>
       <h4 className="text-center mt-5 bm-3">{pageTitle}</h4>
-      <form className="row align-items-center " action="/signup" method="POST">
+      <div className="text-center mt-5 bm-3">
+        <a href="/auth/sign-up" className="btn btn-outline-warning">
+          Need a new account? Sign Up
+        </a>
+      </div>
+
+      <form className="row align-items-center " action="/signin" method="POST">
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email address
@@ -28,50 +32,36 @@ const SignUpPage = ({ pageTitle }: SignUpProps) => {
           <input
             type="password"
             name="password"
+            required
             className="form-control"
             id="password"
           />
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="repeat-passsword" className="form-label">
-            Repeat Password
-          </label>
-          <input
-            name="repeat-passsword"
-            type="password"
-            className="form-control"
-            id="repeat-passsword"
-          />
-        </div>
-
         <ul className="list-group list-group-numbered  mt-3">
           <li className="list-group-item list-group-item-danger">
-            Email is incorect
+            Email is invalid
           </li>
           <li className="list-group-item list-group-item-danger">
-            Password contains invalid characters
-          </li>
-          <li className="list-group-item list-group-item-danger">
-            Passwords mismatch
+            Email or password invalid
           </li>
         </ul>
 
         <button type="submit" className="btn btn-primary mb-3 mt-3">
-          SignUp
+          SignIn
         </button>
-        <div className="btn  btn-outline-dark " id="google-oauth-btn">
+        <div className="btn btn-outline-dark " id="google-oauth-btn">
           <img
             src="https://www.shareicon.net/data/2016/07/10/119930_google_512x512.png"
             alt="google icon"
             width={24}
             className="mx-1"
           />
-          SignUp With Google
+          SignIn With Google
         </div>
       </form>
-    </>
+    </Layout>
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

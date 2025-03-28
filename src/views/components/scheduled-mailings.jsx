@@ -27,7 +27,7 @@ const ScheduledMailings = () => {
             <span>Node js Book</span>
           </td>
           <td>02.02.2025</td>
-          <td>Sended</td>
+          <td>Sent</td>
           <td width={20}>
             <div className="d-flex gap-1">
               <form action="/edit-sending/2346694">
