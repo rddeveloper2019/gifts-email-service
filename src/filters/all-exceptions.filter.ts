@@ -11,6 +11,8 @@ import { Request, Response } from "express";
 const pagesMap = {
   "/auth/sign-up": "signup-page",
   "/auth/sign-in": "signin-page",
+  "/gifts/gift-form": "gifts-page",
+  "/gift-form": "gifts-page",
 };
 
 @Catch()

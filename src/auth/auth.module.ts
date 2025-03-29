@@ -22,10 +22,7 @@ import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
 @Module({
   imports: [
     ToastsModule,
-    NestjsFormDataModule.config({
-      storage: FileSystemStoredFile,
-      fileSystemStoragePath: "/files",
-    }),
+    NestjsFormDataModule,
     TypeOrmModule.forFeature([User]),
     ConfigModule.forFeature(profileConfig),
     ConfigModule.forFeature(jwtConfig),

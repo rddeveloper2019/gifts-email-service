@@ -1,6 +1,6 @@
 import React from "react";
 
-const GiftForm = ({ method, title, button }) => {
+const GiftForm = ({ method, title, button, messages = [] }) => {
   return (
     <div className="accordion  mb-3 w-100 success" id="accordionExample">
       <div className="accordion-item">
@@ -22,19 +22,20 @@ const GiftForm = ({ method, title, button }) => {
           data-bs-parent="#accordionExample"
         >
           <ul className="list-group list-group-numbered  mt-3">
-            <li className="list-group-item list-group-item-danger">
-              Logo cannot be empty
-            </li>
-            <li className="list-group-item list-group-item-danger">
-              Gift name cannot be empty
-            </li>
-            <li className="list-group-item list-group-item-danger">
-              Incorrect file type or file size
-            </li>
+            {messages.map((message, idx) => {
+              return (
+                <li
+                  key={idx}
+                  className="list-group-item list-group-item-danger"
+                >
+                  {message}
+                </li>
+              );
+            })}
           </ul>
           <form
             className="row align-items-center mt-3"
-            action="/gift-form"
+            action="/gifts/gift-form"
             method={method}
             encType="multipart/form-data"
           >
@@ -47,7 +48,6 @@ const GiftForm = ({ method, title, button }) => {
                 name="logo"
                 className="form-control"
                 id="logo"
-                required
                 aria-describedby="logolHelp"
               />
             </div>

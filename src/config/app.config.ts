@@ -7,4 +7,5 @@ export default registerAs("appConfig", () => ({
   smtpUsername: process.env.SMTP_USERNAME,
   smtpPassword: process.env.SMTP_PASSWORD,
   profileApiKey: process.env.PROFILE_API_KEY,
+  filesDir: process.env.FILES_DIR,
 }));

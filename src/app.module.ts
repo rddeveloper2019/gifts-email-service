@@ -9,8 +9,12 @@ import * as process from "node:process";
 import { appConfig, databaseConfig } from "./config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { JwtModule } from "@nestjs/jwt";
+import { GiftsModule } from "./gifts/gifts.module";
+import { FileModule } from "./file/file.module";
 import jwtConfig from "./auth/config/jwt.config";
 import validationSchema from "./config/environment.validation";
+import { join } from "node:path";
+import { existsSync, mkdirSync } from "node:fs";
 
 const ENV = process.env.NODE_ENV;
 
@@ -42,6 +46,8 @@ const ENV = process.env.NODE_ENV;
     SocketModule,
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
+    GiftsModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
