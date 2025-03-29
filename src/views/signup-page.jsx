@@ -1,11 +1,15 @@
 import React from "react";
 import Layout from "./layout";
 
-const SignUpPage = ({ pageTitle }) => {
+const SignUpPage = ({ pageTitle, messages = [] }) => {
   return (
     <Layout>
       <h4 className="text-center mt-5 bm-3">{pageTitle}</h4>
-      <form className="row align-items-center " action="/signup" method="POST">
+      <form
+        className="row align-items-center "
+        action="/auth/sign-up"
+        method="POST"
+      >
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email address
@@ -32,27 +36,25 @@ const SignUpPage = ({ pageTitle }) => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="repeat-passsword" className="form-label">
+          <label htmlFor="passwordConfirm" className="form-label">
             Repeat Password
           </label>
           <input
-            name="repeat-passsword"
+            name="passwordConfirm"
             type="password"
             className="form-control"
-            id="repeat-passsword"
+            id="passwordConfirm"
           />
         </div>
 
         <ul className="list-group list-group-numbered  mt-3">
-          <li className="list-group-item list-group-item-danger">
-            Email is incorect
-          </li>
-          <li className="list-group-item list-group-item-danger">
-            Password contains invalid characters
-          </li>
-          <li className="list-group-item list-group-item-danger">
-            Passwords mismatch
-          </li>
+          {messages.map((message, idx) => {
+            return (
+              <li key={idx} className="list-group-item list-group-item-danger">
+                {message}
+              </li>
+            );
+          })}
         </ul>
 
         <button type="submit" className="btn btn-primary mb-3 mt-3">

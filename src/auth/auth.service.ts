@@ -1,11 +1,13 @@
 import { ToastTypes } from "./../toasts/enum/toasts.enum";
-import { SignUpProvider } from "./providers/sign-up.provider";
+import { CreateUserProvider } from "./providers/create-user.provider";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { Injectable } from "@nestjs/common";
-import { SignInProps } from "src/views/signin-page";
-import { SignUpProps } from "src/views/signup-page";
-import { ToastsService } from "src/toasts/toasts.service";
-
+import { ToastsService } from "../toasts/toasts.service";
+import { SignInFormDataDto } from "./dtos/sign-in.formdata.dto";
+import { SessionType } from "src/guards/session.guard";
+import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
+import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
+import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
 //todo remove
 const users = ["1", "2", "3"];
 const types: ToastTypes[] = [
@@ -20,21 +22,43 @@ const getRandom = <T>(arr: T[] = []) =>
 export class AuthService {
   constructor(
     private readonly signInProvider: SignInProvider,
-    private readonly signUpProvider: SignUpProvider,
+    private readonly createUserProvider: CreateUserProvider,
     private readonly toastsService: ToastsService,
+    private readonly generateTokensProvider: GenerateTokensProvider,
+    private readonly refreshTokensProvider: RefreshTokensProvider,
   ) {
     setInterval(() => {
       const userId = getRandom(users);
       const type = getRandom(types);
-      const body = `Your id is: ${userId}. Message: ${Date.now().toString()}`;
-      this.toastsService.sendMessage(userId, type, body);
+      const body = `Your id is: ${"c455f308-ac7f-431c-8084-c7d311e15889"}. Message: ${Date.now().toString()}`;
+      this.toastsService.sendMessage(
+        "c455f308-ac7f-431c-8084-c7d311e15889",
+        type,
+        body,
+      );
     }, 5000);
   }
 
-  public async signIn(): Promise<SignInProps> {
-    return await this.signInProvider.signIn();
+  public async signIn(
+    signInFormDataDto: SignInFormDataDto,
+    session: SessionType,
+  ): Promise<void> {
+    const user = await this.signInProvider.signIn(signInFormDataDto);
+    session.token = await this.generateTokensProvider.generateTokens(user);
+    session.roomId = user.roomId;
+    session.save();
   }
-  public async signUp(): Promise<SignUpProps> {
-    return await this.signUpProvider.signUp();
+
+  public async createUser(
+    signUpFormDataDto: SignUpFormDataDto,
+    session: SessionType,
+  ): Promise<void> {
+    const user = await this.createUserProvider.createUser(signUpFormDataDto);
+    session.token = await this.generateTokensProvider.generateTokens(user);
+    session.roomId = user.roomId;
+    session.save();
+  }
+  public async refreshTokens(session: SessionType): Promise<void> {
+    await this.refreshTokensProvider.refreshTokens(session);
   }
 }

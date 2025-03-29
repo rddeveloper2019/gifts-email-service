@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "./layout";
 
-const ErrorPage = ({ title, messages = [], statusCode }) => {
+const ErrorPage = ({ pageTitle, messages = [], statusCode }) => {
   return (
     <Layout>
       <div className="d-flex align-items-center flex-column mt-3 mb-3 text-danger">
-        <h2>{title}</h2>
+        <h2>{pageTitle}</h2>
         <ul className="list-group">
           {messages.map((message, idx) => {
             return (

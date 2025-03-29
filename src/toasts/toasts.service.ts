@@ -1,14 +1,14 @@
-import { forwardRef, Inject, Injectable } from "@nestjs/common";
-import { Gateway } from "src/socket/sockets.gateway";
+import { Injectable } from "@nestjs/common";
+import { Gateway } from "../socket/sockets.gateway";
 import { ToastTypes } from "./enum/toasts.enum";
 
 @Injectable()
 export class ToastsService {
   constructor(private gateway: Gateway) {}
 
-  public sendMessage(userId: string, type: ToastTypes, body: string) {
+  public sendMessage(roomId: string, type: ToastTypes, body: string) {
     return this.gateway.sendMessage(
-      userId,
+      roomId,
       JSON.stringify({
         type,
         body,

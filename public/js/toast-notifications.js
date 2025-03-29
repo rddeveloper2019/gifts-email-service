@@ -21,5 +21,4 @@ const subscribe = () => {
   });
 };
 
-socket.emit("init");
 socket.on("init", subscribe);
