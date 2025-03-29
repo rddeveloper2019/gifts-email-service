@@ -8,6 +8,7 @@ import { Repository } from "typeorm";
 import { SignUpFormDataDto } from "../dtos/sign-up.formdata.dto";
 import { User } from "../entities/user.entity";
 import { BcryptProvider } from "./bcrypt.provider";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class CreateUserProvider {
@@ -31,6 +32,7 @@ export class CreateUserProvider {
 
       const newUser = this.usersRepository.create({
         ...signUpFormDataDto,
+        roomId: uuidv4(),
         password: await this.bcryptProvider.hashPassword(
           signUpFormDataDto.password,
         ),

@@ -41,6 +41,9 @@ export class RefreshTokensProvider {
       const user = await this.usersRepository.findOneById(sub);
 
       session.token = await this.generateTokensProvider.generateTokens(user);
+      session.roomId = user.roomId;
+      session.save();
+      console.log("(**)=>refreshTokens session: ", session);
     } catch (error) {
       throw new UnauthorizedException(error);
     }

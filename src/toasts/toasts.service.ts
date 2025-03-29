@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Gateway } from "../socket/sockets.gateway";
 import { ToastTypes } from "./enum/toasts.enum";
 

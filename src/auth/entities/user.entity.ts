@@ -9,6 +9,9 @@ export class User {
   @Column({ type: "varchar", length: 96, nullable: false, unique: true })
   email: string;
 
+  @Column({ type: "varchar", length: 96, nullable: false, unique: true })
+  roomId: string;
+
   @Column({ type: "boolean", nullable: false, default: false })
   verified: string;
 

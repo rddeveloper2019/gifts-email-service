@@ -28,8 +28,12 @@ export class AuthService {
     setInterval(() => {
       const userId = getRandom(users);
       const type = getRandom(types);
-      const body = `Your id is: ${userId}. Message: ${Date.now().toString()}`;
-      this.toastsService.sendMessage(userId, type, body);
+      const body = `Your id is: ${"c455f308-ac7f-431c-8084-c7d311e15889"}. Message: ${Date.now().toString()}`;
+      this.toastsService.sendMessage(
+        "c455f308-ac7f-431c-8084-c7d311e15889",
+        type,
+        body,
+      );
     }, 5000);
   }
 

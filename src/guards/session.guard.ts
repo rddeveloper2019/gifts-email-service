@@ -11,6 +11,7 @@ import { RefreshTokensProvider } from "../auth/providers/refresh-tokens.provider
 export type SessionType = Session &
   Partial<session.SessionData> & {
     token?: string;
+    roomId?: string;
   };
 
 @Injectable()
@@ -19,6 +20,7 @@ export class SessionGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const session = request.session as SessionType;
+    console.log("(**)=>SessionGuard session: ", session);
 
     if (!session?.token) {
       throw new UnauthorizedException("Требуется аутентификация");

@@ -7,6 +7,8 @@ import { AllExceptionsFilter } from "./filters/all-exceptions.filter";
 import { ValidationPipe } from "@nestjs/common";
 import session from "express-session";
 import { ConfigService } from "@nestjs/config";
+import cookieParser from "cookie-parser";
+import { SessionAdapter } from "./socket/session-adapter";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -51,6 +53,14 @@ async function bootstrap() {
         maxAge: 24 * 60 * 60 * 1000, // 1 день
       },
     }),
+  );
+
+  app.use(cookieParser());
+  app.useWebSocketAdapter(
+    new SessionAdapter(
+      app,
+      configService.get("appConfig.profileApiKey") as string,
+    ),
   );
 
   await app.listen(process.env.PORT ?? 3000);
