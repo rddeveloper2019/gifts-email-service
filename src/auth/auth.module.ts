@@ -1,5 +1,9 @@
 import { Module } from "@nestjs/common";
-import { MemoryStoredFile, NestjsFormDataModule } from "nestjs-form-data";
+import {
+  FileSystemStoredFile,
+  MemoryStoredFile,
+  NestjsFormDataModule,
+} from "nestjs-form-data";
 import { ToastsModule } from "../toasts/toasts.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
@@ -18,7 +22,10 @@ import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
 @Module({
   imports: [
     ToastsModule,
-    NestjsFormDataModule.config({ storage: MemoryStoredFile }),
+    NestjsFormDataModule.config({
+      storage: FileSystemStoredFile,
+      fileSystemStoragePath: "/files",
+    }),
     TypeOrmModule.forFeature([User]),
     ConfigModule.forFeature(profileConfig),
     ConfigModule.forFeature(jwtConfig),

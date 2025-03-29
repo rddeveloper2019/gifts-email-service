@@ -11,7 +11,7 @@ const Links = {
   GIFTS: "gifts",
   MAILINGS: "mailings",
 };
-const MailnigsPage = () => {
+const MailnigsPage = ({ roomId }) => {
   return (
     <Layout>
       <NavBar
@@ -22,8 +22,8 @@ const MailnigsPage = () => {
       />
 
       <div className="d-flex align-items-center flex-column mb-3">
-        <ToastNotifications />
-        <UnverifiedEmailNotification />
+        <ToastNotifications roomId={roomId} />
+        {/* <UnverifiedEmailNotification /> */}
         <MailningForm
           method={"POST"}
           button={"Create"}

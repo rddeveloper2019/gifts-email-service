@@ -41,7 +41,7 @@ const NavBar = ({ options }) => {
               </a>
             </li>
           </ul>
-          <form className="d-flex" action="/auth/logout">
+          <form className="d-flex" action="/auth/logout" method="POST">
             <button className="btn btn-outline-dark" type="submit">
               ☹️ Logout
             </button>

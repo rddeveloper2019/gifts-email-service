@@ -1,4 +1,3 @@
-import { SessionType } from "src/guards/session.guard";
 import {
   MessageBody,
   OnGatewayConnection,
@@ -6,35 +5,24 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from "@nestjs/websockets";
-import { IncomingMessage } from "http";
-import { Socket } from "socket.io";
 
-@WebSocketGateway({
-  cors: {
-    origin: "*",
-  },
-})
+import { Socket, Server } from "socket.io";
+
+@WebSocketGateway()
 export class Gateway implements OnGatewayConnection {
   @WebSocketServer()
-  private server: Socket;
+  private server: Server;
+  private client: Socket;
 
   constructor() {}
   handleConnection(client: Socket) {
-    const request = client.request as IncomingMessage & {
-      session?: SessionType;
-    };
+    this.client = client;
   }
 
   @SubscribeMessage("init")
-  public async initUserId(client: Socket, @MessageBody() data: string) {
-    const request = client?.request as IncomingMessage & {
-      session?: SessionType;
-    };
-
-    const roomId = request?.session?.roomId;
-
+  public async initUserId(@MessageBody() { roomId = "" }: { roomId: string }) {
     if (roomId) {
-      client.join(roomId);
+      this.client?.join([roomId]);
       this.server.to(roomId).emit("init");
     }
   }

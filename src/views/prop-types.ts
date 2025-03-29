@@ -26,3 +26,9 @@ export interface SignInProps {
 export interface SignUpProps {
   pageTitle: string;
 }
+export interface GiftsPageProps {
+  roomId: string;
+}
+export interface MailnigsPageProps {
+  roomId: string;
+}

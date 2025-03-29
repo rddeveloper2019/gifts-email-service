@@ -6,27 +6,50 @@ import {
   Render,
   Res,
   UseGuards,
+  Session,
 } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { Response } from "express";
-import { SessionGuard } from "./guards/session.guard";
+import { SessionGuard, SessionType } from "./guards/session.guard";
+import {
+  GiftsPageProps,
+  MailnigsPageProps,
+  SignInProps,
+  SignUpProps,
+} from "./views/prop-types";
+import { AuthService } from "./auth/auth.service";
 
 @UseGuards(SessionGuard)
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get()
   @Redirect()
   @Render("mailings-page")
-  public mailingsPage() {
-    return {};
+  public mailingsPage(@Session() session: SessionType): MailnigsPageProps {
+    return { roomId: session.roomId };
   }
 
   @Get("gifts")
   @Render("gifts-page")
-  public giftsPage() {
-    return {};
+  public giftsPage(@Session() session: SessionType): GiftsPageProps {
+    return { roomId: session.roomId };
+  }
+
+  @Get("sign-in")
+  @Render("signin-page")
+  public async getSignInPage(): Promise<SignInProps> {
+    return { pageTitle: "Sign In" };
+  }
+
+  @Get("sign-up")
+  @Render("signup-page")
+  public async getSignUpPage(): Promise<SignUpProps> {
+    return { pageTitle: "Sign Up" };
   }
 
   @Get("/edit-mailing/:id")
