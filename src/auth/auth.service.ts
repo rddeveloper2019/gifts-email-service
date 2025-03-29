@@ -1,10 +1,12 @@
 import { ToastTypes } from "./../toasts/enum/toasts.enum";
-import { SignUpProvider } from "./providers/sign-up.provider";
+import { CreateUserProvider } from "./providers/create-user.provider";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { Injectable } from "@nestjs/common";
 import { ToastsService } from "../toasts/toasts.service";
 import { SignInProps, SignUpProps } from "../views/prop-types";
-
+import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
+import { SessionType } from "src/guards/session.guard";
+import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
 //todo remove
 const users = ["1", "2", "3"];
 const types: ToastTypes[] = [
@@ -19,8 +21,9 @@ const getRandom = <T>(arr: T[] = []) =>
 export class AuthService {
   constructor(
     private readonly signInProvider: SignInProvider,
-    private readonly signUpProvider: SignUpProvider,
+    private readonly createUserProvider: CreateUserProvider,
     private readonly toastsService: ToastsService,
+    private readonly generateTokensProvider: GenerateTokensProvider,
   ) {
     setInterval(() => {
       const userId = getRandom(users);
@@ -33,7 +36,12 @@ export class AuthService {
   public async signIn(): Promise<SignInProps> {
     return await this.signInProvider.signIn();
   }
-  public async signUp(): Promise<SignUpProps> {
-    return await this.signUpProvider.signUp();
+
+  public async createUser(
+    signUpFormDataDto: SignUpFormDataDto,
+    session: SessionType,
+  ): Promise<void> {
+    const user = await this.createUserProvider.createUser(signUpFormDataDto);
+    session.token = await this.generateTokensProvider.generateTokens(user);
   }
 }

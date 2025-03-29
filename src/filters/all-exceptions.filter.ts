@@ -3,8 +3,15 @@ import {
   BadRequestException,
   Catch,
   ExceptionFilter,
+  HttpException,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { Request, Response } from "express";
+
+const pagesMap = {
+  "/auth/sign-up": "signup-page",
+  "/auth/sign-in": "signin-page",
+};
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -16,7 +23,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     let status = 500;
     let messages = ["Произошла ошибка"];
 
-    if (exception instanceof BadRequestException) {
+    if (exception instanceof HttpException) {
       status = exception.getStatus();
       const exceptionResponse = exception.getResponse() as
         | string
@@ -31,8 +38,30 @@ export class AllExceptionsFilter implements ExceptionFilter {
       }
     }
 
-     response.status(status).render("error-page", {
-      title: "Ошибка",
+    const page = pagesMap[request?.url] || "error-page";
+
+    console.log("(**)=> AllExceptionsFilter: ", {
+      messages,
+      statusCode: status,
+      path: request.url,
+    });
+
+    if (exception instanceof UnauthorizedException) {
+      if (
+        request?.url !== "/auth/sign-up" &&
+        request?.url !== "/auth/sign-in"
+      ) {
+        response.status(status).render("signin-page", {
+          pageTitle: "Authorization Required",
+          messages,
+        });
+      }
+
+      return;
+    }
+
+    response.status(status).render(page, {
+      pageTitle: "Error",
       messages,
       statusCode: status,
       path: request.url,

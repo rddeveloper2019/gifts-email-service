@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { SignInProps } from "src/views/signin-page";
+import { SignInProps } from "src/views/prop-types";
 
 @Injectable()
 export class SignInProvider {

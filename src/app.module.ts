@@ -13,7 +13,6 @@ import jwtConfig from "./auth/config/jwt.config";
 import validationSchema from "./config/environment.validation";
 
 const ENV = process.env.NODE_ENV;
-console.log("(**)=> ENV: ", ENV);
 
 @Module({
   imports: [

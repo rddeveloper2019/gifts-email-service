@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./layout";
 
-const SignInPage = ({ pageTitle }) => {
+const SignInPage = ({ pageTitle, messages = [] }) => {
   return (
     <Layout>
       <h4 className="text-center mt-5 bm-3">{pageTitle}</h4>
@@ -39,12 +39,13 @@ const SignInPage = ({ pageTitle }) => {
         </div>
 
         <ul className="list-group list-group-numbered  mt-3">
-          <li className="list-group-item list-group-item-danger">
-            Email is invalid
-          </li>
-          <li className="list-group-item list-group-item-danger">
-            Email or password invalid
-          </li>
+          {messages.map((message, idx) => {
+            return (
+              <li key={idx} className="list-group-item list-group-item-danger">
+                {message}
+              </li>
+            );
+          })}
         </ul>
 
         <button type="submit" className="btn btn-primary mb-3 mt-3">

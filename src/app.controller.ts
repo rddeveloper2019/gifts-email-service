@@ -1,14 +1,25 @@
-import { Controller, Get, Param, Render, Res } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Param,
+  Redirect,
+  Render,
+  Res,
+  UseGuards,
+} from "@nestjs/common";
 import { AppService } from "./app.service";
 import { Response } from "express";
+import { SessionGuard } from "./guards/session.guard";
 
+@UseGuards(SessionGuard)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @Render("mailnigs-page")
-  public mailnigsPage() {
+  @Redirect()
+  @Render("mailings-page")
+  public mailingsPage() {
     return {};
   }
 
@@ -26,7 +37,6 @@ export class AppController {
 
   @Get("/delete-mailing/:id")
   public deleteMailing(@Res() res: Response, @Param("id") id: string) {
-    console.log("(**)=> dete id: ", id);
     res.redirect("/");
   }
 
@@ -38,7 +48,6 @@ export class AppController {
 
   @Get("/delete-gift/:id")
   public deleteGift(@Res() res: Response, @Param("id") id: string) {
-    console.log("(**)=> dete id: ", id);
     res.redirect("/gifts");
   }
 }

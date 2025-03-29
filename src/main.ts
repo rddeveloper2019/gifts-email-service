@@ -5,6 +5,8 @@ import { NestExpressApplication } from "@nestjs/platform-express";
 import { join } from "path";
 import { AllExceptionsFilter } from "./filters/all-exceptions.filter";
 import { ValidationPipe } from "@nestjs/common";
+import session from "express-session";
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -33,13 +35,24 @@ async function bootstrap() {
     }),
   );
   app.setViewEngine("jsx");
-
-  // app.useStaticAssets(join(__dirname, '..', 'public'));
-  // app.setBaseViewsDir(join('src', 'views'));
   app.setViewEngine("jsx");
   app.useGlobalFilters(new AllExceptionsFilter());
 
   app.enableCors();
+
+  const configService = app.get(ConfigService);
+
+  app.use(
+    session({
+      secret: configService.get("appConfig.profileApiKey") as string, // Замените на свой секретный ключ
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 1 день
+      },
+    }),
+  );
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
