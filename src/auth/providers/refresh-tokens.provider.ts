@@ -1,15 +1,7 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  UnauthorizedException,
-} from "@nestjs/common";
+import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { GenerateTokensProvider } from "./generate-tokens.provider";
 import { JwtService } from "@nestjs/jwt";
-
 import { ConfigType } from "@nestjs/config";
-
-import { timeStamp } from "console";
 import jwtConfig from "../config/jwt.config";
 import { ActiveUserData } from "../interfaces/active-user-data.interface";
 import { SessionType } from "src/guards/session.guard";
@@ -43,7 +35,6 @@ export class RefreshTokensProvider {
       session.token = await this.generateTokensProvider.generateTokens(user);
       session.roomId = user.roomId;
       session.save();
-      console.log("(**)=>refreshTokens session: ", session);
     } catch (error) {
       throw new UnauthorizedException(error);
     }

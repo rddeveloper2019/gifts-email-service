@@ -6,9 +6,9 @@ import { ToastTypes } from "./enum/toasts.enum";
 export class ToastsService {
   constructor(private gateway: Gateway) {}
 
-  public sendMessage(userId: string, type: ToastTypes, body: string) {
+  public sendMessage(roomId: string, type: ToastTypes, body: string) {
     return this.gateway.sendMessage(
-      userId,
+      roomId,
       JSON.stringify({
         type,
         body,

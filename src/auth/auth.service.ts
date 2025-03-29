@@ -3,10 +3,11 @@ import { CreateUserProvider } from "./providers/create-user.provider";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { Injectable } from "@nestjs/common";
 import { ToastsService } from "../toasts/toasts.service";
-import { SignInProps, SignUpProps } from "../views/prop-types";
-import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
+import { SignInFormDataDto } from "./dtos/sign-in.formdata.dto";
 import { SessionType } from "src/guards/session.guard";
 import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
+import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
+import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
 //todo remove
 const users = ["1", "2", "3"];
 const types: ToastTypes[] = [
@@ -24,6 +25,7 @@ export class AuthService {
     private readonly createUserProvider: CreateUserProvider,
     private readonly toastsService: ToastsService,
     private readonly generateTokensProvider: GenerateTokensProvider,
+    private readonly refreshTokensProvider: RefreshTokensProvider,
   ) {
     setInterval(() => {
       const userId = getRandom(users);
@@ -37,8 +39,14 @@ export class AuthService {
     }, 5000);
   }
 
-  public async signIn(): Promise<SignInProps> {
-    return await this.signInProvider.signIn();
+  public async signIn(
+    signInFormDataDto: SignInFormDataDto,
+    session: SessionType,
+  ): Promise<void> {
+    const user = await this.signInProvider.signIn(signInFormDataDto);
+    session.token = await this.generateTokensProvider.generateTokens(user);
+    session.roomId = user.roomId;
+    session.save();
   }
 
   public async createUser(
@@ -47,5 +55,10 @@ export class AuthService {
   ): Promise<void> {
     const user = await this.createUserProvider.createUser(signUpFormDataDto);
     session.token = await this.generateTokensProvider.generateTokens(user);
+    session.roomId = user.roomId;
+    session.save();
+  }
+  public async refreshTokens(session: SessionType): Promise<void> {
+    await this.refreshTokensProvider.refreshTokens(session);
   }
 }

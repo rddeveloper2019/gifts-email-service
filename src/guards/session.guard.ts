@@ -7,7 +7,7 @@ import {
 } from "@nestjs/common";
 import { Request } from "express";
 import session, { Session } from "express-session";
-import { RefreshTokensProvider } from "../auth/providers/refresh-tokens.provider";
+import { AuthService } from "../auth/auth.service";
 export type SessionType = Session &
   Partial<session.SessionData> & {
     token?: string;
@@ -16,17 +16,16 @@ export type SessionType = Session &
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-  constructor(private readonly refreshTokensProvider: RefreshTokensProvider) {}
+  constructor(private readonly authService: AuthService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const session = request.session as SessionType;
-    console.log("(**)=>SessionGuard session: ", session);
 
     if (!session?.token) {
       throw new UnauthorizedException("Требуется аутентификация");
     }
 
-    await this.refreshTokensProvider.refreshTokens(session);
+    await this.authService.refreshTokens(session);
 
     return true;
   }

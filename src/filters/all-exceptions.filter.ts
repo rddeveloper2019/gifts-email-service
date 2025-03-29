@@ -47,15 +47,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     });
 
     if (exception instanceof UnauthorizedException) {
-      if (
-        request?.url !== "/auth/sign-up" &&
-        request?.url !== "/auth/sign-in"
-      ) {
-        response.status(status).render("signin-page", {
-          pageTitle: "Authorization Required",
-          messages,
-        });
-      }
+      response.status(status).render("signin-page", {
+        pageTitle: "Authorization Required",
+        messages,
+      });
 
       return;
     }

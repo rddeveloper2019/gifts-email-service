@@ -1,6 +1,6 @@
 import { SessionType } from "src/guards/session.guard";
-import { session } from "express-session";
 import {
+  MessageBody,
   OnGatewayConnection,
   SubscribeMessage,
   WebSocketGateway,
@@ -8,11 +8,6 @@ import {
 } from "@nestjs/websockets";
 import { IncomingMessage } from "http";
 import { Socket } from "socket.io";
-
-const users = ["1", "2", "3"];
-
-const getId = (arr: string[] = []) =>
-  arr[Math.floor(Math.random() * arr.length)];
 
 @WebSocketGateway({
   cors: {
@@ -28,22 +23,15 @@ export class Gateway implements OnGatewayConnection {
     const request = client.request as IncomingMessage & {
       session?: SessionType;
     };
-
-    // Пример проверки аутентификации
-    if (!request.session?.token || !request.session?.roomId) {
-      client.disconnect(true);
-      return;
-    }
   }
 
   @SubscribeMessage("init")
-  public async initUserId(client: Socket) {
-    const request = client.request as IncomingMessage & {
+  public async initUserId(client: Socket, @MessageBody() data: string) {
+    const request = client?.request as IncomingMessage & {
       session?: SessionType;
     };
 
-    const roomId = request.session?.roomId;
-    await fetch("https://jsonplaceholder.typicode.com/posts");
+    const roomId = request?.session?.roomId;
 
     if (roomId) {
       client.join(roomId);

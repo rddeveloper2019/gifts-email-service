@@ -5,10 +5,11 @@ import {
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { SignUpFormDataDto } from "../dtos/sign-up.formdata.dto";
+
 import { User } from "../entities/user.entity";
 import { BcryptProvider } from "./bcrypt.provider";
 import { v4 as uuidv4 } from "uuid";
+import { SignUpFormDataDto } from "../dtos/sign-up.formdata.dto";
 
 @Injectable()
 export class CreateUserProvider {

@@ -11,7 +11,11 @@ const SignInPage = ({ pageTitle, messages = [] }) => {
         </a>
       </div>
 
-      <form className="row align-items-center " action="/signin" method="POST">
+      <form
+        className="row align-items-center "
+        action="/auth/sign-in"
+        method="POST"
+      >
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email address
