@@ -1,6 +1,5 @@
 import {
   Injectable,
-  NotFoundException,
   RequestTimeoutException,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -17,7 +16,7 @@ export class SignInProvider {
     private readonly bcryptProvider: BcryptProvider,
   ) {}
   public async signIn(signInFormDataDto: SignInFormDataDto): Promise<User> {
-    let user = await this.usersRepository.findOne({
+    const user = await this.usersRepository.findOne({
       where: {
         email: signInFormDataDto.email,
       },

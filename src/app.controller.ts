@@ -4,12 +4,10 @@ import {
   Param,
   Redirect,
   Render,
-  Res,
   UseGuards,
   Session,
   ParseIntPipe,
 } from "@nestjs/common";
-import { Response } from "express";
 import { SessionGuard, SessionType } from "./guards/session.guard";
 import { GiftsPageProps, SignInProps, SignUpProps } from "./views/prop-types";
 import { GiftsService } from "./gifts/providers/gifts.service";
@@ -56,10 +54,5 @@ export class AppController {
     @Session() session: SessionType,
   ) {
     return { gift: await this.giftsService.findOne(id, session) };
-  }
-
-  @Get("/delete-gift/:id")
-  public deleteGift(@Res() res: Response, @Param("id") id: string) {
-    res.redirect("/gifts");
   }
 }

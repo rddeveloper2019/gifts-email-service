@@ -8,7 +8,6 @@ import { SessionType } from "src/guards/session.guard";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
-import { of } from "rxjs";
 
 @Injectable()
 export class RefreshTokensProvider {

@@ -35,8 +35,8 @@ const DEFAULT_OPTIONS = {
 };
 
 export const createEngine = (engineOptions: JsxEngineOptionsType = {}) => {
-  var registered = false;
-  var moduleDetectRegEx;
+  let registered = false;
+  let moduleDetectRegEx;
 
   engineOptions = assign({}, DEFAULT_OPTIONS, engineOptions || {});
 
@@ -64,10 +64,10 @@ export const createEngine = (engineOptions: JsxEngineOptionsType = {}) => {
       );
       registered = true;
     }
-
+    let markup: string;
     try {
-      var markup = engineOptions.doctype;
-      var component = await import(filename); //require();
+      markup = engineOptions.doctype;
+      let component = await import(filename); //require();
       // Transpiled ES6 may export components as { default: Component }
       component = component.default || component;
       markup += renderToStaticMarkup(React.createElement(component, options));
@@ -85,8 +85,6 @@ export const createEngine = (engineOptions: JsxEngineOptionsType = {}) => {
     }
 
     if (engineOptions.beautify) {
-      // NOTE: This will screw up some things where whitespace is important, and be
-      // subtly different than prod.
       markup = beautifyHTML(markup);
     }
 
