@@ -60,15 +60,6 @@ const SignUpPage = ({ pageTitle, messages = [] }) => {
         <button type="submit" className="btn btn-primary mb-3 mt-3">
           SignUp
         </button>
-        <div className="btn  btn-outline-dark " id="google-oauth-btn">
-          <img
-            src="https://www.shareicon.net/data/2016/07/10/119930_google_512x512.png"
-            alt="google icon"
-            width={24}
-            className="mx-1"
-          />
-          SignUp With Google
-        </div>
       </form>
     </Layout>
   );

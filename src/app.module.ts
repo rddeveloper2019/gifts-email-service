@@ -1,4 +1,4 @@
-import { Module, forwardRef } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
@@ -13,10 +13,6 @@ import { GiftsModule } from "./gifts/gifts.module";
 import { FileModule } from "./file/file.module";
 import jwtConfig from "./auth/config/jwt.config";
 import validationSchema from "./config/environment.validation";
-import { join } from "node:path";
-import { existsSync, mkdirSync } from "node:fs";
-import { User } from "./auth/entities/user.entity";
-import { Gift } from "./gifts/entities/gift.entity";
 
 const ENV = process.env.NODE_ENV;
 
@@ -41,7 +37,6 @@ const ENV = process.env.NODE_ENV;
         password: configService.get("database.password"),
         database: configService.get("database.database"),
         host: configService.get("database.host"),
-        // entities: [User, Gift],
       }),
     }),
     AuthModule,

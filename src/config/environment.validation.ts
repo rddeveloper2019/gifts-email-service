@@ -14,11 +14,5 @@ export default Joi.object({
   JWT_TOKEN_AUDIENCE: Joi.string().required(),
   JWT_TOKEN_ISSUER: Joi.string().required(),
   JWT_TOKEN_TTL: Joi.number().required(),
-  API_VERSION: Joi.string().required(),
-  GOOGLE_CLIENT_ID: Joi.string().required(),
-  GOOGLE_CLIENT_SECRET: Joi.string().required(),
-  MAIL_HOST: Joi.string().required(),
-  SMTP_USERNAME: Joi.string().required(),
-  SMTP_PASSWORD: Joi.string().required(),
   FILES_DIR: Joi.string().required(),
 });

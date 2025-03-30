@@ -1,7 +1,6 @@
 import { SessionType } from "src/guards/session.guard";
 import {
   ArgumentsHost,
-  BadRequestException,
   Catch,
   ExceptionFilter,
   HttpException,
@@ -16,6 +15,8 @@ const pagesMap = {
   "/auth/sign-in": "signin-page",
   "/gifts/gift-form": "gifts-page",
   "/gift-form": "gifts-page",
+  "/sign-up": "signup-page",
+  "/sign-in": "signin-page",
 };
 
 @Catch()
@@ -49,7 +50,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         }
       }
 
-      const page = pagesMap[request?.url] || "error-page";
+      const page = pagesMap[request?.url];
 
       console.log("(**)=> AllExceptionsFilter: ", {
         messages,
@@ -58,7 +59,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       });
 
       if (exception instanceof UnauthorizedException) {
-        response.status(status).render("signin-page", {
+        response.status(status).render(page || "signin-page", {
           pageTitle: "Authorization Required",
           messages,
         });
@@ -66,7 +67,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         return;
       }
 
-      response.status(status).render(page, {
+      response.status(status).render(page || "error-page", {
         pageTitle: "Error",
         messages,
         statusCode: status,

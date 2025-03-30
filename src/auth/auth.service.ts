@@ -2,15 +2,13 @@ import { ToastTypes } from "./../toasts/enum/toasts.enum";
 import { CreateUserProvider } from "./providers/create-user.provider";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { Injectable } from "@nestjs/common";
-import { ToastsService } from "../toasts/toasts.service";
 import { SignInFormDataDto } from "./dtos/sign-in.formdata.dto";
 import { SessionType } from "src/guards/session.guard";
 import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
 import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
 import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
 import { DecodeTokensProvider } from "./providers/decode-token.provider";
-//todo remove
-const users = ["1", "2", "3"];
+
 const types: ToastTypes[] = [
   ToastTypes.WARNING,
   ToastTypes.SUCCESS,
@@ -24,22 +22,10 @@ export class AuthService {
   constructor(
     private readonly signInProvider: SignInProvider,
     private readonly createUserProvider: CreateUserProvider,
-    private readonly toastsService: ToastsService,
     private readonly generateTokensProvider: GenerateTokensProvider,
     private readonly refreshTokensProvider: RefreshTokensProvider,
     private readonly decodeTokensProvider: DecodeTokensProvider,
-  ) {
-    setInterval(() => {
-      const userId = getRandom(users);
-      const type = getRandom(types);
-      const body = `Your id is: ${"c455f308-ac7f-431c-8084-c7d311e15889"}. Message: ${Date.now().toString()}`;
-      this.toastsService.sendMessage(
-        "c455f308-ac7f-431c-8084-c7d311e15889",
-        type,
-        body,
-      );
-    }, 5000);
-  }
+  ) {}
 
   public async signIn(
     signInFormDataDto: SignInFormDataDto,

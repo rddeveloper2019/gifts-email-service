@@ -1,7 +1,6 @@
 import { GiftsModule } from "./../gifts/gifts.module";
 import { Module, forwardRef } from "@nestjs/common";
 import { NestjsFormDataModule } from "nestjs-form-data";
-import { ToastsModule } from "../toasts/toasts.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { SignInProvider } from "./providers/sign-in.provider";
@@ -19,7 +18,6 @@ import { DecodeTokensProvider } from "./providers/decode-token.provider";
 
 @Module({
   imports: [
-    ToastsModule,
     NestjsFormDataModule,
     TypeOrmModule.forFeature([User]),
     ConfigModule.forFeature(profileConfig),

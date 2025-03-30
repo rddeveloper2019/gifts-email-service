@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { basename, resolve } from "path";
+import { basename } from "path";
 import { User } from "src/auth/entities/user.entity";
 import { SessionType } from "src/guards/session.guard";
 import { Repository } from "typeorm";

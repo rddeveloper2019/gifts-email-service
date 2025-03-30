@@ -4,7 +4,6 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { SignInProps } from "src/views/prop-types";
 import { Repository } from "typeorm";
 import { SignInFormDataDto } from "../dtos/sign-in.formdata.dto";
 import { User } from "../entities/user.entity";

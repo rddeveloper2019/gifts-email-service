@@ -1,17 +1,7 @@
 import { SignInFormDataDto } from "./dtos/sign-in.formdata.dto";
 import { AuthService } from "./auth.service";
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Redirect,
-  Render,
-  Req,
-  Res,
-  Session,
-} from "@nestjs/common";
-import { Response, Request } from "express";
+import { Body, Controller, Post, Redirect, Res, Session } from "@nestjs/common";
+import { Response } from "express";
 import { FormDataRequest } from "nestjs-form-data";
 import { SessionType } from "src/guards/session.guard";
 import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";

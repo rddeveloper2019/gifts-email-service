@@ -8,7 +8,6 @@ import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import cookieParser from "cookie-parser";
 import session from "express-session";
-import { existsSync, mkdirSync } from "fs";
 import { ToastsService } from "./toasts/toasts.service";
 import { ToastsModule } from "./toasts/toasts.module";
 
@@ -17,9 +16,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, //пропустит только объявленные поля в dto
-      forbidNonWhitelisted: true, //ошибка, если есть лишние поля не объявленные поля в dto
-      transform: true, // получаемый объект становится instance Dto класса
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
       transformOptions: { enableImplicitConversion: true },
     }),
   );
@@ -59,12 +58,6 @@ async function bootstrap() {
   );
 
   app.use(cookieParser());
-  // app.useWebSocketAdapter(
-  //   new SessionAdapter(
-  //     app,
-  //     configService.get("appConfig.profileApiKey") as string,
-  //   ),
-  // );
 
   await app.listen(process.env.PORT ?? 3000);
 }
