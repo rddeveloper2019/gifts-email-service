@@ -1,4 +1,3 @@
-import { ToastTypes } from "./../toasts/enum/toasts.enum";
 import { CreateUserProvider } from "./providers/create-user.provider";
 import { SignInProvider } from "./providers/sign-in.provider";
 import { Injectable } from "@nestjs/common";
@@ -8,14 +7,6 @@ import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
 import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
 import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
 import { DecodeTokensProvider } from "./providers/decode-token.provider";
-
-const types: ToastTypes[] = [
-  ToastTypes.WARNING,
-  ToastTypes.SUCCESS,
-  ToastTypes.DANGER,
-];
-const getRandom = <T>(arr: T[] = []) =>
-  arr[Math.floor(Math.random() * arr.length)];
 
 @Injectable()
 export class AuthService {

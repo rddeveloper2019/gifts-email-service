@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { join } from "path";
 import { User } from "src/auth/entities/user.entity";
 import { SessionType } from "src/guards/session.guard";
 import { Repository } from "typeorm";
@@ -9,8 +8,6 @@ import { AuthService } from "src/auth/auth.service";
 import { ToastsService } from "src/toasts/toasts.service";
 import { ToastTypes } from "src/toasts/enum/toasts.enum";
 import { UpdateGiftFormDataDto } from "../dtos/update-gift.formdata.dto";
-
-const uploadPath = join(process.cwd(), "uploaded-files");
 
 @Injectable()
 export class UpdateGiftProvider {

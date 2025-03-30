@@ -9,7 +9,6 @@ import { ConfigService } from "@nestjs/config";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import { ToastsService } from "./toasts/toasts.service";
-import { ToastsModule } from "./toasts/toasts.module";
 import methodOverride from "method-override";
 
 async function bootstrap() {
