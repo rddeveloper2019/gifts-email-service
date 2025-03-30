@@ -7,6 +7,7 @@ import {
   Res,
   UseGuards,
   Session,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { Response } from "express";
 import { SessionGuard, SessionType } from "./guards/session.guard";
@@ -50,8 +51,11 @@ export class AppController {
 
   @Get("/edit-gift/:id")
   @Render("edit-gift-page")
-  public editGiftPage(@Param("id") id: string) {
-    return {};
+  public async editGiftPage(
+    @Param("id", ParseIntPipe) id: number,
+    @Session() session: SessionType,
+  ) {
+    return { gift: await this.giftsService.findOne(id, session) };
   }
 
   @Get("/delete-gift/:id")

@@ -5,14 +5,20 @@ import React from "react";
 import ToastNotifications from "./components/toast-notifications";
 import Layout from "./layout";
 
-const EditGiftPage = () => {
+const EditGiftPage = ({ gift }) => {
   return (
     <Layout>
       <NavBar />
       <div className="d-flex align-items-center flex-column mb-3">
         <ToastNotifications />
-        <GiftCard />
-        <GiftForm method={"PUT"} title={"Edit gift"} button={"Save"} />
+        <GiftCard gift={gift} />
+        <GiftForm
+          method={"POST"}
+          title={"Edit gift"}
+          button={"Save"}
+          action={`/gifts/${gift.id}?_method=PATCH`}
+          gift={gift}
+        />
       </div>
     </Layout>
   );

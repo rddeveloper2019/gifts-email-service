@@ -1,6 +1,6 @@
 import React from "react";
 
-const GiftForm = ({ method, title, button, messages = [] }) => {
+const GiftForm = ({ gift, method, title, button, action, messages = [] }) => {
   return (
     <div className="accordion  mb-3 w-100 success" id="accordionExample">
       <div className="accordion-item">
@@ -35,9 +35,10 @@ const GiftForm = ({ method, title, button, messages = [] }) => {
           </ul>
           <form
             className="row align-items-center mt-3"
-            action="/gifts/gift-form"
+            action={action || "/gifts/gift-form"}
             method={method}
             encType="multipart/form-data"
+            id="form"
           >
             <div className="mb-3">
               <label htmlFor="logo" className="form-label">
@@ -49,6 +50,7 @@ const GiftForm = ({ method, title, button, messages = [] }) => {
                 className="form-control"
                 id="logo"
                 aria-describedby="logolHelp"
+                defaultValue={gift?.logo}
               />
             </div>
             <div className="mb-3">
@@ -60,22 +62,27 @@ const GiftForm = ({ method, title, button, messages = [] }) => {
                 name="title"
                 className="form-control"
                 id="title"
+                defaultValue={gift?.title}
               />
             </div>
+            {!action && !gift && (
+              <>
+                <div className="mb-3">
+                  <label htmlFor="file" className="form-label">
+                    File
+                  </label>
+                  <input
+                    name="file"
+                    type="file"
+                    className="form-control"
+                    id="file"
+                    required
+                    accept="image/png, image/jpeg, image/jpg, image/bmp, application/pdf"
+                  />
+                </div>
+              </>
+            )}
 
-            <div className="mb-3">
-              <label htmlFor="file" className="form-label">
-                File
-              </label>
-              <input
-                name="file"
-                type="file"
-                className="form-control"
-                id="file"
-                required
-                accept="image/png, image/jpeg, image/jpg, image/bmp, application/pdf"
-              />
-            </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">
                 Description
@@ -84,6 +91,7 @@ const GiftForm = ({ method, title, button, messages = [] }) => {
                 name="description"
                 className="form-control"
                 id="description"
+                defaultValue={gift?.description || ""}
               />
             </div>
             <button type="submit" className="btn btn-primary mb-3 mt-3">
