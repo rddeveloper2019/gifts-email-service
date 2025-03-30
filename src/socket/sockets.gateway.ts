@@ -28,8 +28,10 @@ export class Gateway implements OnGatewayConnection {
   }
 
   public sendMessage(roomId: string, message: string) {
-    this.server.to(roomId).emit("message", {
-      data: message,
-    });
+    setTimeout(() => {
+      this.server.to(roomId).emit("message", {
+        data: message,
+      });
+    }, 1500);
   }
 }

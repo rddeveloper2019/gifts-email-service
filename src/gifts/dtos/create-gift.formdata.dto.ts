@@ -1,4 +1,7 @@
+import { Transform } from "class-transformer";
 import {
+  Allow,
+  IsEmpty,
   IsOptional,
   IsString,
   IsUrl,
@@ -13,14 +16,14 @@ import {
 } from "nestjs-form-data";
 
 export class CreateGiftFormDataDto {
-  @IsUrl()
   @IsOptional()
+  @Transform(({ value }) => (value === "" ? null : value))
   logo?: string;
 
   @IsString()
   @MinLength(4)
   @MaxLength(20)
-  name: string;
+  title: string;
 
   @IsString()
   @IsOptional()

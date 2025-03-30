@@ -1,9 +1,6 @@
-import { Module } from "@nestjs/common";
-import {
-  FileSystemStoredFile,
-  MemoryStoredFile,
-  NestjsFormDataModule,
-} from "nestjs-form-data";
+import { GiftsModule } from "./../gifts/gifts.module";
+import { Module, forwardRef } from "@nestjs/common";
+import { NestjsFormDataModule } from "nestjs-form-data";
 import { ToastsModule } from "../toasts/toasts.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
@@ -18,6 +15,7 @@ import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
 import jwtConfig from "./config/jwt.config";
 import { JwtModule } from "@nestjs/jwt";
 import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
+import { DecodeTokensProvider } from "./providers/decode-token.provider";
 
 @Module({
   imports: [
@@ -27,6 +25,7 @@ import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
     ConfigModule.forFeature(profileConfig),
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
+    forwardRef(() => GiftsModule),
   ],
   exports: [AuthService],
   controllers: [AuthController],
@@ -37,6 +36,7 @@ import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
     BcryptProvider,
     GenerateTokensProvider,
     RefreshTokensProvider,
+    DecodeTokensProvider,
   ],
 })
 export class AuthModule {}

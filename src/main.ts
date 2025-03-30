@@ -9,6 +9,8 @@ import { ConfigService } from "@nestjs/config";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import { existsSync, mkdirSync } from "fs";
+import { ToastsService } from "./toasts/toasts.service";
+import { ToastsModule } from "./toasts/toasts.module";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -38,7 +40,8 @@ async function bootstrap() {
   );
   app.setViewEngine("jsx");
   app.setViewEngine("jsx");
-  app.useGlobalFilters(new AllExceptionsFilter());
+  const toastsService = app.get(ToastsService);
+  app.useGlobalFilters(new AllExceptionsFilter(toastsService));
 
   app.enableCors();
 

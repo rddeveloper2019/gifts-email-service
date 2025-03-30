@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, forwardRef } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
@@ -15,6 +15,8 @@ import jwtConfig from "./auth/config/jwt.config";
 import validationSchema from "./config/environment.validation";
 import { join } from "node:path";
 import { existsSync, mkdirSync } from "node:fs";
+import { User } from "./auth/entities/user.entity";
+import { Gift } from "./gifts/entities/gift.entity";
 
 const ENV = process.env.NODE_ENV;
 
@@ -26,6 +28,7 @@ const ENV = process.env.NODE_ENV;
       load: [appConfig, databaseConfig],
       validationSchema,
     }),
+    ConfigModule.forFeature(jwtConfig),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -38,16 +41,15 @@ const ENV = process.env.NODE_ENV;
         password: configService.get("database.password"),
         database: configService.get("database.database"),
         host: configService.get("database.host"),
-        // entities: [User],
+        // entities: [User, Gift],
       }),
     }),
     AuthModule,
+    GiftsModule,
     ToastsModule,
     SocketModule,
-    ConfigModule.forFeature(jwtConfig),
-    JwtModule.registerAsync(jwtConfig.asProvider()),
-    GiftsModule,
     FileModule,
+    JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
   controllers: [AppController],
   providers: [AppService],

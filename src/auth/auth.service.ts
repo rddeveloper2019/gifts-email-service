@@ -8,6 +8,7 @@ import { SessionType } from "src/guards/session.guard";
 import { GenerateTokensProvider } from "./providers/generate-tokens.provider";
 import { RefreshTokensProvider } from "./providers/refresh-tokens.provider";
 import { SignUpFormDataDto } from "./dtos/sign-up.formdata.dto";
+import { DecodeTokensProvider } from "./providers/decode-token.provider";
 //todo remove
 const users = ["1", "2", "3"];
 const types: ToastTypes[] = [
@@ -26,6 +27,7 @@ export class AuthService {
     private readonly toastsService: ToastsService,
     private readonly generateTokensProvider: GenerateTokensProvider,
     private readonly refreshTokensProvider: RefreshTokensProvider,
+    private readonly decodeTokensProvider: DecodeTokensProvider,
   ) {
     setInterval(() => {
       const userId = getRandom(users);
@@ -60,5 +62,8 @@ export class AuthService {
   }
   public async refreshTokens(session: SessionType): Promise<void> {
     await this.refreshTokensProvider.refreshTokens(session);
+  }
+  public decodeToken(session: SessionType): object {
+    return this.decodeTokensProvider.decodeToken(session);
   }
 }

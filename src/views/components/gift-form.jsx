@@ -52,14 +52,14 @@ const GiftForm = ({ method, title, button, messages = [] }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                Gift Name
+              <label htmlFor="title" className="form-label">
+                Gift Title
               </label>
               <input
                 type="text"
-                name="name"
+                name="title"
                 className="form-control"
-                id="name"
+                id="title"
               />
             </div>
 

@@ -9,7 +9,7 @@ if (!existsSync(uploadPath)) {
   mkdirSync(uploadPath, { recursive: true });
 }
 
-@Controller("file")
+@Controller("files")
 export class FileController {
   @Get(":id")
   getFile(@Res() res: Response, @Param("id") id: string) {
