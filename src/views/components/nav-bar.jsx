@@ -9,7 +9,7 @@ const NavBar = ({ options }) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <p className="navbar-brand">🎁 Gift Email Service</p>
+        <p className="navbar-brand">🎁 Gifts Storage Service</p>
         <button
           className="navbar-toggler"
           type="button"
@@ -23,15 +23,6 @@ const NavBar = ({ options }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* <li className="nav-item">
-              <a
-                className={`nav-link ${options?.[Links.MAILINGS] && "active"}`}
-                aria-current="page"
-                href="/"
-              >
-                Mailings
-              </a>
-            </li> */}
             <li className="nav-item">
               <a
                 className={`nav-link ${options?.[Links.GIFTS] && "active"}`}

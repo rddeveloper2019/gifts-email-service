@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import { ToastsService } from "./toasts/toasts.service";
 import { ToastsModule } from "./toasts/toasts.module";
+import methodOverride from "method-override";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -58,7 +59,7 @@ async function bootstrap() {
   );
 
   app.use(cookieParser());
-
+  app.use(methodOverride("_method"));
   await app.listen(process.env.PORT ?? 3000);
 }
 

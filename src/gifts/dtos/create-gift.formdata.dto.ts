@@ -22,7 +22,7 @@ export class CreateGiftFormDataDto {
   description?: string;
 
   @IsFile()
-  @MaxFileSize(5e6)
+  @MaxFileSize(50e6)
   @HasMimeType([
     "image/jpeg",
     "image/png",

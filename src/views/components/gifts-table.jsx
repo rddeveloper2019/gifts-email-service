@@ -1,6 +1,10 @@
 import React from "react";
 
 const GiftsTable = ({ gifts = [] }) => {
+  if (!gifts.length) {
+    return null;
+  }
+
   return (
     <table className="table">
       <thead>
@@ -15,7 +19,7 @@ const GiftsTable = ({ gifts = [] }) => {
       <tbody>
         {gifts.map((gift, idx) => {
           return (
-            <tr className="table-success">
+            <tr className="table-success" key={gift.name}>
               <th scope="row">{idx + 1}</th>
               <td>
                 <img
@@ -41,7 +45,10 @@ const GiftsTable = ({ gifts = [] }) => {
                   >
                     👀
                   </a>
-                  <form action={`/delete-gift/${gift.id}`}>
+                  <form
+                    action={`/gifts/${gift.id}?_method=DELETE`}
+                    method="POST"
+                  >
                     <button className="btn btn-outline-danger" type="submit">
                       🗑️
                     </button>
