@@ -52,12 +52,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
       const page = pagesMap[request?.url];
 
-      console.log("(**)=> AllExceptionsFilter: ", {
-        messages,
-        statusCode: status,
-        path: request.url,
-      });
-
       if (exception instanceof UnauthorizedException) {
         response.status(status).render(page || "signin-page", {
           pageTitle: "Authorization Required",

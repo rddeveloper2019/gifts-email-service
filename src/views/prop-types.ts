@@ -1,4 +1,4 @@
-import { Gift } from "src/gifts/entities/gift.entity";
+import { Gift } from "../gifts/entities/gift.entity";
 export enum Links {
   GIFTS = "gifts",
   MAILINGS = "mailings",

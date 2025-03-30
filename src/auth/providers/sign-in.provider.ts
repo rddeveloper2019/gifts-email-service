@@ -1,5 +1,6 @@
 import {
   Injectable,
+  NotFoundException,
   RequestTimeoutException,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -22,6 +23,10 @@ export class SignInProvider {
       },
     });
 
+    if (!user) {
+      throw new UnauthorizedException("User Not Found!");
+    }
+
     let isEqual: boolean = false;
 
     try {
@@ -36,7 +41,7 @@ export class SignInProvider {
     }
 
     if (!isEqual) {
-      throw new UnauthorizedException("Incorrect password");
+      throw new UnauthorizedException("Email or password invalid");
     }
 
     return user;

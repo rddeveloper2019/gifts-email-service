@@ -8,6 +8,7 @@ import { SessionType } from "src/guards/session.guard";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
+import { of } from "rxjs";
 
 @Injectable()
 export class RefreshTokensProvider {
@@ -30,7 +31,11 @@ export class RefreshTokensProvider {
         audience: this.jwtConfiguration.audience,
         issuer: this.jwtConfiguration.issuer,
       });
-      const user = await this.usersRepository.findOneById(sub);
+      const user = await this.usersRepository.findOne({ where: { id: sub } });
+
+      if (!user) {
+        throw "User Not Found";
+      }
 
       session.token = await this.generateTokensProvider.generateTokens(user);
       session.roomId = user.roomId;

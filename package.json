@@ -45,6 +45,7 @@
     "joi": "^17.13.3",
     "js-beautify": "^1.15.4",
     "lodash.escaperegexp": "^4.1.2",
+    "method-override": "^3.0.0",
     "nestjs-form-data": "^1.9.93",
     "object-assign": "^4.1.1",
     "pg": "^8.14.1",
