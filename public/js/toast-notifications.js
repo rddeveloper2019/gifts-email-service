@@ -1,6 +1,11 @@
 const socket = io();
 
 const messages = document.querySelector("#toast-notifications");
+const roomId = document.querySelector("#roomId").textContent || "";
+
+if (roomId) {
+  socket.emit("init", { roomId });
+}
 
 const generateToast = ({ type = "success", body = "" }) => {
   return `

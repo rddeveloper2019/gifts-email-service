@@ -6,7 +6,7 @@ const SignInPage = ({ pageTitle, messages = [] }) => {
     <Layout>
       <h4 className="text-center mt-5 bm-3">{pageTitle}</h4>
       <div className="text-center mt-5 bm-3">
-        <a href="/auth/sign-up" className="btn btn-outline-warning">
+        <a href="/sign-up" className="btn btn-outline-warning">
           Need a new account? Sign Up
         </a>
       </div>
@@ -55,15 +55,6 @@ const SignInPage = ({ pageTitle, messages = [] }) => {
         <button type="submit" className="btn btn-primary mb-3 mt-3">
           SignIn
         </button>
-        <div className="btn btn-outline-dark " id="google-oauth-btn">
-          <img
-            src="https://www.shareicon.net/data/2016/07/10/119930_google_512x512.png"
-            alt="google icon"
-            width={24}
-            className="mx-1"
-          />
-          SignIn With Google
-        </div>
       </form>
     </Layout>
   );

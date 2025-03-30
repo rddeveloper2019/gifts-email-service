@@ -1,5 +1,13 @@
 import { Exclude } from "class-transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Gift } from "src/gifts/entities/gift.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity()
 export class User {
@@ -19,10 +27,19 @@ export class User {
   verificationCode: string;
 
   @Column({ type: "varchar", length: 96, nullable: true })
-  @Exclude() //@UseInterceptors(ClassSerializerInterceptor) in usr controller
+  @Exclude()
   password?: string;
 
   @Column({ type: "varchar", nullable: true })
-  @Exclude() //@UseInterceptors(ClassSerializerInterceptor) in usr controller
+  @Exclude()
   googleId?: string;
+
+  @OneToMany(() => Gift, (gift) => gift.user)
+  gifts: Promise<Gift[]>;
+
+  @CreateDateColumn()
+  createDate: Date;
+
+  @UpdateDateColumn()
+  updateDate: Date;
 }

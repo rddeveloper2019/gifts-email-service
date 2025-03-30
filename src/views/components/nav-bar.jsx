@@ -23,7 +23,7 @@ const NavBar = ({ options }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className={`nav-link ${options?.[Links.MAILINGS] && "active"}`}
                 aria-current="page"
@@ -31,7 +31,7 @@ const NavBar = ({ options }) => {
               >
                 Mailings
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a
                 className={`nav-link ${options?.[Links.GIFTS] && "active"}`}
@@ -41,7 +41,7 @@ const NavBar = ({ options }) => {
               </a>
             </li>
           </ul>
-          <form className="d-flex" action="/auth/logout">
+          <form className="d-flex" action="/auth/logout" method="POST">
             <button className="btn btn-outline-dark" type="submit">
               ☹️ Logout
             </button>

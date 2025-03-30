@@ -9,6 +9,8 @@ import * as process from "node:process";
 import { appConfig, databaseConfig } from "./config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { JwtModule } from "@nestjs/jwt";
+import { GiftsModule } from "./gifts/gifts.module";
+import { FileModule } from "./file/file.module";
 import jwtConfig from "./auth/config/jwt.config";
 import validationSchema from "./config/environment.validation";
 
@@ -22,6 +24,7 @@ const ENV = process.env.NODE_ENV;
       load: [appConfig, databaseConfig],
       validationSchema,
     }),
+    ConfigModule.forFeature(jwtConfig),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -34,13 +37,13 @@ const ENV = process.env.NODE_ENV;
         password: configService.get("database.password"),
         database: configService.get("database.database"),
         host: configService.get("database.host"),
-        // entities: [User],
       }),
     }),
     AuthModule,
+    GiftsModule,
     ToastsModule,
     SocketModule,
-    ConfigModule.forFeature(jwtConfig),
+    FileModule,
     JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
   controllers: [AppController],

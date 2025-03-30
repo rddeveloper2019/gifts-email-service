@@ -5,19 +5,20 @@ import { NestExpressApplication } from "@nestjs/platform-express";
 import { join } from "path";
 import { AllExceptionsFilter } from "./filters/all-exceptions.filter";
 import { ValidationPipe } from "@nestjs/common";
-import session from "express-session";
 import { ConfigService } from "@nestjs/config";
 import cookieParser from "cookie-parser";
-import { SessionAdapter } from "./socket/session-adapter";
+import session from "express-session";
+import { ToastsService } from "./toasts/toasts.service";
+import { ToastsModule } from "./toasts/toasts.module";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, //пропустит только объявленные поля в dto
-      forbidNonWhitelisted: true, //ошибка, если есть лишние поля не объявленные поля в dto
-      transform: true, // получаемый объект становится instance Dto класса
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
       transformOptions: { enableImplicitConversion: true },
     }),
   );
@@ -38,7 +39,8 @@ async function bootstrap() {
   );
   app.setViewEngine("jsx");
   app.setViewEngine("jsx");
-  app.useGlobalFilters(new AllExceptionsFilter());
+  const toastsService = app.get(ToastsService);
+  app.useGlobalFilters(new AllExceptionsFilter(toastsService));
 
   app.enableCors();
 
@@ -47,22 +49,17 @@ async function bootstrap() {
   app.use(
     session({
       secret: configService.get("appConfig.profileApiKey") as string, // Замените на свой секретный ключ
-      resave: false,
-      saveUninitialized: false,
       cookie: {
-        maxAge: 24 * 60 * 60 * 1000, // 1 день
+        maxAge: 86400,
+        httpOnly: false,
       },
+      name: "gifts-email-service",
     }),
   );
 
   app.use(cookieParser());
-  app.useWebSocketAdapter(
-    new SessionAdapter(
-      app,
-      configService.get("appConfig.profileApiKey") as string,
-    ),
-  );
 
   await app.listen(process.env.PORT ?? 3000);
 }
+
 bootstrap();

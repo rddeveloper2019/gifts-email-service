@@ -1,3 +1,4 @@
+import { Gift } from "src/gifts/entities/gift.entity";
 export enum Links {
   GIFTS = "gifts",
   MAILINGS = "mailings",
@@ -25,4 +26,8 @@ export interface SignInProps {
 
 export interface SignUpProps {
   pageTitle: string;
+}
+export interface GiftsPageProps {
+  roomId: string;
+  gifts: Gift[];
 }
