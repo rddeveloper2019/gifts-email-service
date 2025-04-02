@@ -9,8 +9,7 @@ import { ToastsService } from "src/toasts/toasts.service";
 import { ToastTypes } from "src/toasts/enum/toasts.enum";
 import { join } from "path";
 import { stat, unlink } from "fs";
-
-const uploadPath = join(process.cwd(), "uploaded-files");
+import { FILES_PATH } from "../../config";
 
 @Injectable()
 export class DeleteGiftProvider {
@@ -40,7 +39,7 @@ export class DeleteGiftProvider {
       }
 
       const found = await this.giftRepository.findOne({ where: { id } });
-      const filePath = join(uploadPath, found.name);
+      const filePath = join(FILES_PATH, found.name);
 
       stat(filePath, (err) => {
         if (err) {

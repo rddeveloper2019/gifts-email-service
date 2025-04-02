@@ -14,13 +14,11 @@ import { FileModule } from "./file/file.module";
 import jwtConfig from "./auth/config/jwt.config";
 import validationSchema from "./config/environment.validation";
 
-const ENV = process.env.NODE_ENV;
-
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: !ENV ? ".env" : `.env.${ENV}`,
+      envFilePath: `${process.env.HOME}/gifts_app/env/.env`,
       load: [appConfig, databaseConfig],
       validationSchema,
     }),

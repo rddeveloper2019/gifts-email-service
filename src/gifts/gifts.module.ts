@@ -13,18 +13,17 @@ import { ToastsModule } from "src/toasts/toasts.module";
 import { FindAllGiftsProvider } from "./providers/find-all-gifts.provider";
 import { DeleteGiftProvider } from "./providers/delete-gift.provider";
 import { UpdateGiftProvider } from "./providers/update-gift.provider";
+import { FILES_PATH } from "../config/";
 
-const uploadPath = join(process.cwd(), "uploaded-files");
-
-if (!existsSync(uploadPath)) {
-  mkdirSync(uploadPath, { recursive: true });
+if (!existsSync(FILES_PATH)) {
+  mkdirSync(FILES_PATH, { recursive: true });
 }
 
 @Module({
   imports: [
     NestjsFormDataModule.config({
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: uploadPath,
+      fileSystemStoragePath: FILES_PATH,
       cleanupAfterSuccessHandle: false,
     }),
     forwardRef(() => AuthModule),
